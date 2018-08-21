@@ -4,8 +4,24 @@
     state: latest
     pkg: "{{ item }}"
   with_items:
-    - ruby2.3
-    - ruby2.3-dev
+    - software-properties-common
+
+# Now that we have the apt-add-repository tool (from software-properties-common)
+- name: Add brightbox ruby repo to apt
+  become: true
+  shell: apt-add-repository -y ppa:brightbox/ruby-ng
+
+# Sync-up the new repo
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: install ruby-switch
+  become: true
+  shell: apt-get -y install ruby2.3 ruby-switch
+
+- name: switch to ruby 2.3
+  shell: ruby-switch --set ruby2.3
 
 - name: Install Packages | bundler
   gem:
