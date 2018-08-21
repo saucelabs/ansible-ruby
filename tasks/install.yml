@@ -18,7 +18,7 @@
 
 - name: install ruby-switch
   become: true
-  shell: apt-get -y install ruby2.3 ruby-switch
+  shell: apt-get -y install ruby2.3 ruby-switch ruby2.3-dev
 
 - name: switch to ruby 2.3
   shell: ruby-switch --set ruby2.3
